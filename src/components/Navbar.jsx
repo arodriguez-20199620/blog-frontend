@@ -33,23 +33,23 @@ export const Navbar = () => {
         <>
             {isOpen && <div className="fixed inset-0 bg-black opacity-50 z-40" onClick={toggleSidebar}></div>}
 
-            <nav className="bg-white shadow-lg">
+            <nav className="bg-gray-900 shadow-lg">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center py-4">
                         <div className="flex-shrink-0">
-                            <a href="#" className="text-2xl font-bold text-gray-900">Mi blog</a>
+                            <a href="#" className="text-2xl font-bold text-white">Mi blog</a>
                         </div>
                         <div className="hidden md:block">
                             <ul className="ml-4 flex items-center space-x-8">
-                                <li><a href="#" className="text-gray-900 hover:text-blue-500">Inicio</a></li>
-                                <li><a href="#" className="text-gray-900 hover:text-blue-500">Blog</a></li>
-                                <li><a href="#" className="text-gray-900 hover:text-blue-500">Acerca de</a></li>
-                                <li><a href="#" className="text-gray-900 hover:text-blue-500">Contacto</a></li>
+                                <li><a href="#" className="text-white hover:text-teal-500 font-bold text-lg	">Inicio</a></li>
+                                <li><a href="#" className="text-white hover:text-teal-500 font-bold text-lg	">Blog</a></li>
+                                <li><a href="#" className="text-white hover:text-teal-500 font-bold text-lg	">Acerca de</a></li>
+                                <li><a href="#" className="text-white hover:text-teal-500 font-bold text-lg	">Contacto</a></li>
                             </ul>
                         </div>
                         <div className="md:hidden">
                             <button type="button" className="text-gray-900 hover:text-blue-500 focus:outline-none focus:text-blue-500" onClick={toggleSidebar}>
-                                <CgMenuRight size={24} color='#111827' />
+                                <CgMenuRight size={24} color='#fff' />
                             </button>
                         </div>
                     </div>

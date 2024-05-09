@@ -15,7 +15,7 @@ export const Card = ({ data, img }) => {
             <a href="#"></a>
             <div className="relative">
                 <a href="#">
-                    <img class="w-full"
+                    <img className="w-full"
                         src="https://images.pexels.com/photos/196667/pexels-photo-196667.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500"
                         alt="Sunset in the mountains"/>
                         <div

@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import axios from "axios";
 
 const apiClient = axios.create({
@@ -5,13 +6,24 @@ const apiClient = axios.create({
     timeout: 5000
 })
 
-export const getProjects = async (data) => {
-    try{
+export const getProjects = async () => {
+    try {
         return await apiClient.get('/projects/')
-    }catch(e){
-        return{
+    } catch (e) {
+        return {
             error: true,
-            e 
+            e
+        }
+    }
+}
+
+export const postProject = async (data) => {
+    try {
+        return await apiClient.post('/projects/', data)
+    } catch (e) {
+        return {
+            error: true,
+            e
         }
     }
 }
