@@ -7,7 +7,7 @@ const apiClient = axios.create({
 
 export const getProjects = async (data) => {
     try{
-        return await apiClient.post('/projects/')
+        return await apiClient.get('/projects/')
     }catch(e){
         return{
             error: true,
