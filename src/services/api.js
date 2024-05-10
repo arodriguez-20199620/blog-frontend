@@ -17,6 +17,17 @@ export const getProjects = async () => {
     }
 }
 
+export const searchProject = async (id) => {
+    try {
+        return await apiClient.get(`/projects/${id}`)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
 export const postProject = async (data) => {
     try {
         return await apiClient.post('/projects/', data)

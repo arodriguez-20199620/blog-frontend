@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoMdClose } from "react-icons/io";
 import { CgMenuRight } from "react-icons/cg";
+import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -33,25 +34,23 @@ export const Navbar = () => {
         <>
             {isOpen && <div className="fixed inset-0 bg-black opacity-50 z-40" onClick={toggleSidebar}></div>}
 
-            <nav className="bg-gray-900 shadow-lg">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center py-4">
-                        <div className="flex-shrink-0">
-                            <a href="#" className="text-2xl font-bold text-white">Mi blog</a>
-                        </div>
-                        <div className="hidden md:block">
-                            <ul className="ml-4 flex items-center space-x-8">
-                                <li><a href="#" className="text-white hover:text-teal-500 font-bold text-lg	">Inicio</a></li>
-                                <li><a href="#" className="text-white hover:text-teal-500 font-bold text-lg	">Blog</a></li>
-                                <li><a href="#" className="text-white hover:text-teal-500 font-bold text-lg	">Acerca de</a></li>
-                                <li><a href="#" className="text-white hover:text-teal-500 font-bold text-lg	">Contacto</a></li>
-                            </ul>
-                        </div>
-                        <div className="md:hidden">
-                            <button type="button" className="text-gray-900 hover:text-blue-500 focus:outline-none focus:text-blue-500" onClick={toggleSidebar}>
-                                <CgMenuRight size={24} color='#fff' />
-                            </button>
-                        </div>
+            <nav className="bg-gray-900 shadow-lg ">
+                <div className="max-w-7xl mx-auto h-32 px-4 sm:px-6 lg:px-8 flex justify-between items-center"> {/* Modificado */}
+                    <div className="flex-shrink-0">
+                        <a href="#" className="text-2xl font-bold text-white">Mi blog</a>
+                    </div>
+                    <div className="hidden md:block">
+                        <ul className="ml-4 flex items-center space-x-9">
+                            <li><Link to="/" className="text-white hover:text-teal-500 font-bold text-lg">Inicio</Link></li>
+                            <li><Link to="/add" className="text-white hover:text-teal-500 font-bold text-lg">Blog</Link></li>
+                            <li><a href="#" className="text-white hover:text-teal-500 font-bold text-lg">Acerca de</a></li>
+                            <li><Link to="https://github.com/arodriguez-20199620" target='_blank' className="text-white hover:text-teal-500 font-bold text-lg">Contacto</Link></li>
+                        </ul>
+                    </div>
+                    <div className="md:hidden">
+                        <button type="button" className="text-gray-900 hover:text-blue-500 focus:outline-none focus:text-blue-500" onClick={toggleSidebar}>
+                            <CgMenuRight size={24} color='#fff' />
+                        </button>
                     </div>
                 </div>
                 <div ref={sidebarRef} className={`md:hidden fixed inset-y-0 left-0 z-50 transition-transform ease-in-out duration-300 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
@@ -68,10 +67,10 @@ export const Navbar = () => {
                                 </div>
                             </div>
                             <div className="px-2 pt-2 pb-3 mt-8 space-y-1">
-                                <a href="#" className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md">Inicio</a>
-                                <a href="#" className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md">Blog</a>
+                                <Link to="/" className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md">Inicio</Link>
+                                <Link to="/add" className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md">Blog</Link>
                                 <a href="#" className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md">Acerca de</a>
-                                <a href="#" className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md">Contacto</a>
+                                <Link to="https://github.com/arodriguez-20199620" className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md">Contacto</Link>
                             </div>
                         </div>
                     </div>

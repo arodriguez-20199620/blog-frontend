@@ -15,6 +15,7 @@ export const CreateProject = () => {
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="bg-white p-8 rounded-lg shadow-lg max-w-xl w-full"
+                encType="multipart/form-data"
             >
                 <h1 className="text-2xl font-bold text-gray-800 mb-6">Create new project</h1>
                 <div className="mb-4">
@@ -83,23 +84,6 @@ export const CreateProject = () => {
                         placeholder="Your Name"
                     />
                     {errors.authorName && <span className="text-red-500">Author Name is required</span>}
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="authorEmail"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Author Email
-                    </label>
-                    <input
-                        type="email"
-                        id="authorEmail"
-                        name="authorEmail"
-                        {...register('authorEmail', { required: true })}
-                        className={`border-2 border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${errors.authorEmail ? 'border-red-500' : ''}`}
-                        placeholder="Your Email"
-                    />
-                    {errors.authorEmail && <span className="text-red-500">Author Email is required</span>}
                 </div>
                 <button
                     type="submit"

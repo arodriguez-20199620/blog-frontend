@@ -1,6 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { getProjects, postProject } from "../services/api";
+import { getProjects, postProject, searchProject } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 export const useProjects = () => {
@@ -12,7 +12,18 @@ export const useProjects = () => {
         const response = await getProjects();
         if (response.error) {
             return toast.error(
-                response.e?.response?.data || 'Ocurrió un error al leer los canales'
+                response.e?.response?.data || 'Ocurrió un error al leer los proyectos'
+            )
+        }
+        setProjects(response.data);
+    };
+
+    const findByIdProject = async (id) => {
+
+        const response = await searchProject(id);
+        if (response.error) {
+            return toast.error(
+                response.e?.response?.data || 'Ocurrió un error al leer los proyectos'
             )
         }
         setProjects(response.data);
@@ -32,6 +43,7 @@ export const useProjects = () => {
     };
 
     return {
+        findByIdProject,
         getProjects: getProjectsData,
         isFetching: projects.length === 0,
         projects: projects,
