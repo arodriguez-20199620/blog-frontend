@@ -1,6 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { getProjects, postProject, searchProject } from "../services/api";
+import { getProjects, postProject, searchProject, deleteProjects } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 export const useProjects = () => {
@@ -30,7 +30,6 @@ export const useProjects = () => {
     };
 
     const createProject = async (data) => {
-        console.log(data)
         const response = await postProject(data);
         if (response.error) {
             console.log(response.e); // Imprime el objeto de error
@@ -42,11 +41,24 @@ export const useProjects = () => {
 
     };
 
+    const deleteProject = async (id) => {
+        const response = await deleteProjects(id);
+        if (response.error) {
+            console.log(response.e); // Imprime el objeto de error
+            console.log(response.e?.response); // Imprime la respuesta del servidor
+            console.log(response.e?.response?.data); // Imprime los datos de la respuesta
+            return toast.error(response.e?.response?.data || 'Ocurrio un error al iniciar sesion, intenta de nuevo')
+        }
+
+        navigate('/')
+    }
+
     return {
         findByIdProject,
         getProjects: getProjectsData,
         isFetching: projects.length === 0,
         projects: projects,
-        createProject
+        createProject,
+        deleteProject
     };
 };

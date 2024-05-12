@@ -8,8 +8,8 @@ export default function App() {
   return (
     <Router>
       <Routes>
-      <Route exact path="/" element={<Home />} />
-        <Route path="/add" element={<CreateProject/>} />
+        <Route exact path="/" element={<Home />} />
+        <Route path="/add" element={<CreateProject />} />
         <Route path="/post/:projectId" element={<PostDetails />} />
       </Routes>
     </Router>

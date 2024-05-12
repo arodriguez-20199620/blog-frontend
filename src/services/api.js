@@ -17,6 +17,18 @@ export const getProjects = async () => {
     }
 }
 
+
+export const deleteProjects = async (id) => {
+    try {
+        return await apiClient.delete(`/projects/${id}`)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
 export const searchProject = async (id) => {
     try {
         return await apiClient.get(`/projects/${id}`)

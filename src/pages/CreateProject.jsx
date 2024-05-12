@@ -1,106 +1,112 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useProjects } from '../hooks/useProject';
+import { Navbar } from '../components/Navbar';
+import { useState } from 'react';
+import { FiPaperclip } from "react-icons/fi";
+
 
 export const CreateProject = () => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { createProject } = useProjects();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [selectedPhoto, setSelectedPhoto] = useState(null); // Estado para almacenar la foto seleccionada
+
+
     const onSubmit = (data) => {
-        console.log(data);
-        createProject(data)
+        const { title, description, code, course } = data;
+        const image = selectedPhoto;
+        console.log(image)
+        createProject({ title, image, description, code, course })
+    };
+
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const imageData = reader.result;
+                setSelectedPhoto(imageData);
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     return (
-        <div className="bg-gray-900 min-h-screen flex items-center justify-center">
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="bg-white p-8 rounded-lg shadow-lg max-w-xl w-full"
-                encType="multipart/form-data"
-            >
-                <h1 className="text-2xl font-bold text-gray-800 mb-6">Create new project</h1>
-                <div className="mb-4">
-                    <label
-                        htmlFor="title"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Title
-                    </label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        {...register('title', { required: true })}
-                        className={`border-2 border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${errors.title ? 'border-red-500' : ''}`}
-                        placeholder="Project Title"
-                    />
-                    {errors.title && <span className="text-red-500">Title is required</span>}
+        <>
+            <Navbar />
+            <form onSubmit={handleSubmit(onSubmit)}>
+
+                <div className="mt-5 mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
+                    <div className='mb-2'>
+                        <input
+                            {...register("title", { required: true })} // Conecta este campo al formulario
+                            className="title bg-gray-100 border border-gray-300 p-2 w-full outline-none"
+                            spellCheck="false"
+                            placeholder="Title"
+                            type="text"
+                        />
+                        {errors.title && <p className="text-red-500">Este campo es requerido.</p>}
+                    </div>
+
+
+                    {/* Agrega un campo para el enlace de la página */}
+                    <div className='mb-2'>
+                        <input
+                            {...register("code", { required: true })}
+                            className="bg-gray-100 border border-gray-300 p-2 w-full outline-none"
+                            spellCheck="false"
+                            placeholder="Page Link"
+                            type="text"
+                        />
+                        {errors.code && <p className="text-red-500">Este campo es requerido.</p>}
+                    </div>
+                    <div>
+                        <textarea
+                            {...register("description", { required: true })}
+                            className="description bg-gray-100 sec p-3 h-60 border w-full border-gray-300 outline-none"
+                            spellCheck="false"
+                            placeholder="Describe everything about this post here"
+                        />
+                        {errors.description && <p className="text-red-500">Este campo es requerido.</p>}
+                    </div>
+                    <div className='mb-2'>
+                        <input
+                            {...register("course", { required: true })}
+                            className="bg-gray-100 border border-gray-300 p-2 w-full outline-none"
+                            spellCheck="false"
+                            placeholder="Course"
+                            type="text"
+                        />
+                        {errors.course && <p className="text-red-500">Este campo es requerido.</p>}
+                    </div>
+
+                    <div className="icons flex text-gray-500 m-2">
+                        <label htmlFor="file-upload" className="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-6">
+                            <FiPaperclip />
+                        </label>
+                        <input id="file-upload" type="file"    {...register("photo", {
+                            required: "Photo is required",
+                            onChange: handleFileChange
+                        })} style={{ display: 'none' }} />
+                        {errors.photo && <span className="text-red-500">{errors.photo.message}</span>}
+                    </div>
+                    <div className="buttons flex">
+                        <button
+                            type="button"
+                            className="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            className="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500"
+                        >
+                            Post
+                        </button>
+                    </div>
                 </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="description"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Description
-                    </label>
-                    <textarea
-                        id="description"
-                        name="description"
-                        {...register('description', { required: true })}
-                        className={`border-2 border-gray-300 p-2 rounded-lg w-full h-32 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${errors.description ? 'border-red-500' : ''}`}
-                        placeholder="Project Description"
-                    />
-                    {errors.description && <span className="text-red-500">Description is required</span>}
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="code"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Code (URL)
-                    </label>
-                    <input
-                        type="text"
-                        id="code"
-                        name="code"
-                        {...register('code', { required: true })}
-                        className={`border-2 border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${errors.code ? 'border-red-500' : ''}`}
-                        placeholder="URL of the code"
-                    />
-                    {errors.code && <span className="text-red-500">Code (URL) is required</span>}
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="authorName"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Author Name
-                    </label>
-                    <input
-                        type="text"
-                        id="authorName"
-                        name="authorName"
-                        {...register('authorName', { required: true })}
-                        className={`border-2 border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${errors.authorName ? 'border-red-500' : ''}`}
-                        placeholder="Your Name"
-                    />
-                    {errors.authorName && <span className="text-red-500">Author Name is required</span>}
-                </div>
-                <button
-                    type="submit"
-                    className="bg-indigo-500 text-white p-2 rounded-lg font-semibold w-full hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
-                >
-                    Send
-                </button>
             </form>
-            <div className="mt-4 text-sm text-gray-600">
-                <a
-                    href="https://veilmail.io/irish-geoff"
-                    className="underline"
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                </a>
-            </div>
-        </div>
+        </>
     );
 };

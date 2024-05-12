@@ -35,14 +35,14 @@ export const Navbar = () => {
             {isOpen && <div className="fixed inset-0 bg-black opacity-50 z-40" onClick={toggleSidebar}></div>}
 
             <nav className="bg-gray-900 shadow-lg ">
-                <div className="max-w-7xl mx-auto h-32 px-4 sm:px-6 lg:px-8 flex justify-between items-center"> {/* Modificado */}
+                <div className="max-w-7xl mx-auto h-24 px-4 sm:px-6 lg:px-8 flex justify-between items-center"> {/* Modificado */}
                     <div className="flex-shrink-0">
                         <a href="#" className="text-2xl font-bold text-white">Mi blog</a>
                     </div>
                     <div className="hidden md:block">
                         <ul className="ml-4 flex items-center space-x-9">
                             <li><Link to="/" className="text-white hover:text-teal-500 font-bold text-lg">Inicio</Link></li>
-                            <li><Link to="/add" className="text-white hover:text-teal-500 font-bold text-lg">Blog</Link></li>
+                            <li><Link to="/add" className="text-white hover:text-teal-500 font-bold text-lg">Agregar articulo</Link></li>
                             <li><a href="#" className="text-white hover:text-teal-500 font-bold text-lg">Acerca de</a></li>
                             <li><Link to="https://github.com/arodriguez-20199620" target='_blank' className="text-white hover:text-teal-500 font-bold text-lg">Contacto</Link></li>
                         </ul>

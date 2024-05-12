@@ -2,47 +2,50 @@ import React, { useEffect } from 'react';
 import { Navbar } from '../components/Navbar';
 import { useProjects } from '../hooks/useProject';
 import { useParams } from 'react-router-dom';
-import { Card } from '../components/Card';
+import { Footer } from '../components/Footer';
 
 export const PostDetails = () => {
     const { projectId } = useParams();
     const { findByIdProject, isFetching, projects } = useProjects();
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    };
+
 
     useEffect(() => {
         findByIdProject(projectId);
-    }, [projectId]); 
-    
-    const project = projects.find(proj => proj._id === projectId);
+    }, [projectId]);
 
+    const project = projects.find(proj => proj._id === projectId);
+    console.log(project)
     return (
         <>
             <Navbar />
-            <div className="container mx-auto mt-8">
-                <div className="flex flex-wrap justify-between">
-                    <div className="w-full md:w-8/12 px-4 mb-8">
-                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Featured Image" className="w-full h-64 object-cover rounded" />
-                        {project && (
-                            <>
-                                <h2 className="text-4xl font-bold mt-4 mb-2">{project.title}</h2>
-                                <p className="text-gray-700 mb-4">{project.description}</p>
-                                <a href={project.code} className="text-blue-500 hover:text-blue-700 transition duration-300"> Ver codigo</a>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-3xl mx-auto">
+                    <div className="py-8">
 
-                            </>
-                        )}
+                        <h1 className="text-3xl font-bold mb-2"> {project && (project.title)}</h1>
+                        <p className="text-gray-500 text-sm">Published on <time dateTime="2022-04-05">{project && formatDate(project.createdAt)}</time></p>
+                    </div>
 
+
+                    <img src={project && (project.image)} alt="Featured image" className="w-full h-auto mb-8" />
+
+                    <div className='flex mb-5'>
+                        <p className='text-xl font-bold'>Materia: <span className='font-normal'>{project && (project.course)}</span></p>
                     </div>
-                    <div className="w-full md:w-4/12 px-4 mb-8">
-                        <div className="bg-gray-100 px-4 py-6 rounded">
-                            <h3 className="text-lg font-bold mb-2">Comentarios</h3>
-                            <ul className="list-disc list-inside">
-                                <li><a href="#" className="text-gray-700 hover:text-gray-900">Technology</a></li>
-                                <li><a href="#" className="text-gray-700 hover:text-gray-900">Travel</a></li>
-                                <li><a href="#" className="text-gray-700 hover:text-gray-900">Food</a></li>
-                            </ul>
-                        </div>
+                    <div className="prose mb-40 prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto">
+                        <p>{project && (project.description)}</p>
+
+                        <a href={project && (project.code)} target='_blank' class="text-blue-500 hover:text-blue-700">Ver codigo</a>
                     </div>
+
                 </div>
             </div>
+            <Footer />
         </>
     );
 };
