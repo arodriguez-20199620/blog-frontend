@@ -10,7 +10,6 @@ export const Home = () => {
 
     const { getProjects, isFetching, projects } = useProjects();
     useEffect(() => {
-
         getProjects();
     }, []);
 

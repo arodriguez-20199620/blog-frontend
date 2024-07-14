@@ -27,10 +27,6 @@ export const Card = ({ data, updateProjects }) => {
         updateProjects();
     }
 
-    const toggleDescription = () => {
-        setShowFullDescription(!showFullDescription);
-    };
-
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -50,7 +46,7 @@ export const Card = ({ data, updateProjects }) => {
                 <div ref={descriptionRef} className={`text-gray-500 ${showFullDescription ? '' : 'line-clamp-2'}`}>
                     {description}
                 </div>
-                {!showFullDescription && <Link to={`/post/${_id}`} className="cursor-pointer text-gray-500 hover:text-blue-600" >... Leer más</Link>}
+                <Link to={`/post/${_id}`} className="cursor-pointer text-gray-500 hover:text-blue-600" >... Leer más</Link>
             </div>
             <div className="px-6 py-4 flex justify-between items-center">
                 <span href="#" className="py-1 text-sm font-regular text-gray-900 mr-1">

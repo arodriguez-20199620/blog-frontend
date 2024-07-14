@@ -50,3 +50,25 @@ export const postProject = async (data) => {
         }
     }
 }
+
+export const addComment = async (data) => {
+    try {
+        return await apiClient.post(`/comments/`, data)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
+
+export const getCommentsByPost = async (id) => {
+    try {
+        return await apiClient.get(`/comments/${id}`)
+    } catch (e) {
+        return {
+            error: true,
+            e
+        }
+    }
+}
